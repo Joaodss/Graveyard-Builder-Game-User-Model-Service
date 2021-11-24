@@ -19,7 +19,7 @@ jobs:
           distribution: 'adopt'
           cache: maven
       - name: Build with Maven
-        run: mvn -B validate --file pom.xml -DskipTests=true
+        run: mvn -B verify --file pom.xml -DskipTests=true
 
   unit-tests:
     name: Unit Tests
@@ -34,7 +34,7 @@ jobs:
           cache: maven
       - name: Run tests
         run: |
-          mvn '-Dtest=!*IntegrationTest' verify -Djacoco.destFile=exportJacoco/jacoco-fast.exec
+          mvn '-Dtest=!*IntegrationTest' verify -Djacoco.destFile=exportJacoco/jacoco-ut.exec
       - name: Upload jacoco exec results
         uses: actions/upload-artifact@v2
         with:
@@ -54,7 +54,7 @@ jobs:
           cache: maven
       - name: Run tests
         run: |
-          mvn '-Dtest=*IntegrationTest' verify -Djacoco.destFile=exportJacoco/jacoco-slow-it.exec
+          mvn '-Dtest=*IntegrationTest' verify -Djacoco.destFile=exportJacoco/jacoco-it.exec
       - name: Upload jacoco exec results
         uses: actions/upload-artifact@v2
         with:
