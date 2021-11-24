@@ -38,6 +38,9 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
+    @Column(name = "profile_picture_url")
+    private String profilePictureUrl;
+
     @Column(name = "experience")
     private Long experience;
 
@@ -49,11 +52,21 @@ public class User {
 
 
     // -------------------- Custom Constructor --------------------
-    public User(String username, String email, String password, Set<Role> roles, Long experience, Long gold, Integer partyLevel) {
+    public User(
+            String username,
+            String email,
+            String password,
+            Set<Role> roles,
+            String profilePictureUrl,
+            Long experience,
+            Long gold,
+            Integer partyLevel
+    ) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.profilePictureUrl = profilePictureUrl;
         this.experience = experience;
         this.gold = gold;
         this.partyLevel = partyLevel;
@@ -64,6 +77,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.profilePictureUrl = "";
         this.experience = 0L;
         this.gold = 0L;
         this.partyLevel = 0;
@@ -74,6 +88,7 @@ public class User {
         this.username = registerUserDTO.getUsername();
         this.email = registerUserDTO.getEmail();
         this.password = registerUserDTO.getPassword();
+        this.profilePictureUrl = "";
         this.experience = 0L;
         this.gold = 0L;
         this.partyLevel = 0;
