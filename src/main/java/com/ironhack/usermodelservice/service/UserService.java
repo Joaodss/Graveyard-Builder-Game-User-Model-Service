@@ -1,6 +1,6 @@
 package com.ironhack.usermodelservice.service;
 
-import com.ironhack.usermodelservice.dao.User;
+import com.ironhack.usermodelservice.dto.RegisterUserDTO;
 import com.ironhack.usermodelservice.dto.UserDTO;
 
 import java.util.List;
@@ -8,22 +8,27 @@ import java.util.List;
 public interface UserService {
 
     // -------------------- Get methods --------------------
-    List<UserDTO> getAllUsers(String username);
-
-    UserDTO getUserByUsername(String username);
+    List<UserDTO> getAllUsers();
 
     UserDTO getUserById(long id);
+
+    UserDTO getUserByUsername(String username);
 
     UserDTO getUserByEmail(String email);
 
     List<Long> getAllUsersIdsByPartyLevelBetween(int min, int max);
 
-    // -------------------- Update methods --------------------
-    UserDTO updateUser(UserDTO user);
+    // -------------------- Register methods --------------------
+    UserDTO registerUser(RegisterUserDTO registerUserDTO);
 
-    void changePassword(String password);
+    void addRoleToUser(String username, String roleName);
+
+    // -------------------- Update methods --------------------
+    UserDTO updateUser(String username, UserDTO user);
+
+    void changePassword(String username, String password);
 
     // -------------------- Delete methods --------------------
-    void deleteUser(User user);
+    void deleteUser(String username);
 
 }
