@@ -94,6 +94,7 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.7</version>
+
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -138,6 +139,10 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <excludes>
+                        <exclude>**/usermodelservice/UserModelServiceApplication.class</exclude>
+                        <exclude>**/usermodelservice/dao/*.class</exclude>
+                    </excludes>
                     <fileSets>
                         <fileSet>
                             <directory>${project.build.directory}</directory>
