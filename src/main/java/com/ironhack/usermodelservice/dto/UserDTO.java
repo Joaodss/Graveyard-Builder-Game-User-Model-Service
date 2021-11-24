@@ -1,16 +1,15 @@
 package com.ironhack.usermodelservice.dto;
 
 import com.ironhack.usermodelservice.dao.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
+@ToString
 @Slf4j
 public class UserDTO {
 
