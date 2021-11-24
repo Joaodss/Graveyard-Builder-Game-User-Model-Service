@@ -1,5 +1,6 @@
 package com.ironhack.usermodelservice.dao;
 
+import com.ironhack.usermodelservice.dto.RegisterUserDTO;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -63,6 +64,16 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.experience = 0L;
+        this.gold = 0L;
+        this.partyLevel = 0;
+        log.info("New User created -> {}", this);
+    }
+
+    public User(RegisterUserDTO registerUserDTO) {
+        this.username = registerUserDTO.getUsername();
+        this.email = registerUserDTO.getEmail();
+        this.password = registerUserDTO.getPassword();
         this.experience = 0L;
         this.gold = 0L;
         this.partyLevel = 0;
