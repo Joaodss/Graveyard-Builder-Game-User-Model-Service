@@ -111,6 +111,7 @@
                             <excludes>
                                 <exclude>**/UserModelServiceApplication.class</exclude>
                                 <exclude>**/dao/*.class</exclude>
+                                <exclude>**/dto/*.class</exclude>
                             </excludes> 
                             <rules>
                                 <rule>
