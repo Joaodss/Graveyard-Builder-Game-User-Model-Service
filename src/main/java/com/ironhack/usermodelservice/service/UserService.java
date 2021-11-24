@@ -2,6 +2,7 @@ package com.ironhack.usermodelservice.service;
 
 import com.ironhack.usermodelservice.dao.User;
 import com.ironhack.usermodelservice.dto.UserDTO;
+import org.springframework.data.relational.core.sql.In;
 
 import java.util.List;
 
@@ -12,14 +13,16 @@ public interface UserService {
 
     UserDTO getUserByUsername(String username);
 
-    UserDTO getUserById(Long id);
+    UserDTO getUserById(long id);
 
     UserDTO getUserByEmail(String email);
 
-    // -------------------- Update methods --------------------
-    UserDTO updateUser(User user);
+    List<Long> getAllUsersIdsByPartyLevelBetween(int min, int max);
 
-    void changePassword(User user);
+    // -------------------- Update methods --------------------
+    UserDTO updateUser(UserDTO user);
+
+    void changePassword(String password);
 
     // -------------------- Delete methods --------------------
     void deleteUser(User user);

@@ -16,6 +16,7 @@ public class UserDTO {
 
     private String username;
     private String email;
+    private String profilePictureUrl;
     private Long experience;
     private Long gold;
     private Integer partyLevel;
@@ -25,6 +26,7 @@ public class UserDTO {
     public UserDTO(User user) {
         this.username = user.getUsername();
         this.email = user.getEmail();
+        this.profilePictureUrl = user.getProfilePictureUrl();
         this.experience = user.getExperience();
         this.gold = user.getGold();
         this.partyLevel = user.getPartyLevel();
