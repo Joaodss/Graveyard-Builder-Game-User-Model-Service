@@ -2,7 +2,6 @@ package com.ironhack.usermodelservice.service;
 
 import com.ironhack.usermodelservice.dao.User;
 import com.ironhack.usermodelservice.dto.UserDTO;
-import org.springframework.data.relational.core.sql.In;
 
 import java.util.List;
 
