@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
     public void addRoleToUser(String username, String roleName) {
         log.info("Adding role: {}, to user: {}", roleName, username);
         var storedUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         var storedRole = roleRepository.findByName(roleName);
         storedUser.getRoles().add(
                 storedRole.orElseGet(() -> roleRepository.save(new Role(roleName)))
@@ -89,7 +90,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO updateUser(String username, UserDTO userDTO) {
         log.info("Updating user: {}", username);
         var storedUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         if (userDTO.getUsername() != null) storedUser.setUsername(userDTO.getUsername());
         if (userDTO.getEmail() != null) storedUser.setEmail(userDTO.getEmail());
         if (userDTO.getProfilePictureUrl() != null) storedUser.setProfilePictureUrl(userDTO.getProfilePictureUrl());
@@ -103,7 +104,7 @@ public class UserServiceImpl implements UserService {
     public void changePassword(String username, String password) {
         log.info("Changing password for user: {}", username);
         var storedUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         storedUser.setPassword(password);
         userRepository.save(storedUser);
         log.info("Password changed");
@@ -114,7 +115,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String username) {
         log.info("Deleting user: {}", username);
         var storedUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         userRepository.deleteById(storedUser.getId());
         log.info("User deleted");
     }

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -80,8 +81,8 @@ public class UserControllerImpl implements UserController {
         log.info("Registering user {}", registerUserDTO.getUsername());
         try {
             return userService.registerUser(registerUserDTO);
-        } catch (IllegalArgumentException e1) {
-            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, e1.getMessage());
+        } catch (EntityNotFoundException e1) {
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "User not found: " + e1.getMessage());
         }
     }
 
@@ -92,10 +93,8 @@ public class UserControllerImpl implements UserController {
         log.info("Updating user {}", username);
         try {
             return userService.updateUser(username, user);
-        } catch (IllegalArgumentException e1) {
-            if (e1.getMessage().equals("User not found"))
-                throw new ResponseStatusException(BAD_REQUEST, "User not found");
-            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, e1.getMessage());
+        } catch (EntityNotFoundException e1) {
+            throw new ResponseStatusException(BAD_REQUEST, "User not found");
         }
     }
 
@@ -105,10 +104,8 @@ public class UserControllerImpl implements UserController {
         log.info("Changing password for user {}", username);
         try {
             userService.changePassword(username, passwordDTO.getNewPassword());
-        } catch (IllegalArgumentException e1) {
-            if (e1.getMessage().equals("User not found"))
-                throw new ResponseStatusException(BAD_REQUEST, "User not found");
-            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, e1.getMessage());
+        } catch (EntityNotFoundException e1) {
+            throw new ResponseStatusException(BAD_REQUEST, "User not found");
         }
     }
 
@@ -119,10 +116,8 @@ public class UserControllerImpl implements UserController {
         log.info("Deleting user {}", username);
         try {
             userService.deleteUser(username);
-        } catch (IllegalArgumentException e1) {
-            if (e1.getMessage().equals("User not found"))
-                throw new ResponseStatusException(BAD_REQUEST, "User not found");
-            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, e1.getMessage());
+        } catch (EntityNotFoundException e1) {
+            throw new ResponseStatusException(BAD_REQUEST, "User not found");
         }
     }
 
