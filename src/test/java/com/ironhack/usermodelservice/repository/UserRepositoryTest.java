@@ -29,6 +29,7 @@ class UserRepositoryTest {
             "joaodss@email.com",
             "123456",
             Set.of(),
+            "",
             0L,
             0L,
             15

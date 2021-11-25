@@ -1,5 +1,6 @@
 package com.ironhack.usermodelservice.dao;
 
+import com.ironhack.usermodelservice.dto.RegisterUserDTO;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +36,10 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
+
+    @Column(name = "profile_picture_url")
+    private String profilePictureUrl;
 
     @Column(name = "experience")
     private Long experience;
@@ -48,11 +52,21 @@ public class User {
 
 
     // -------------------- Custom Constructor --------------------
-    public User(String username, String email, String password, Set<Role> roles, Long experience, Long gold, Integer partyLevel) {
+    public User(
+            String username,
+            String email,
+            String password,
+            Set<Role> roles,
+            String profilePictureUrl,
+            Long experience,
+            Long gold,
+            Integer partyLevel
+    ) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.profilePictureUrl = profilePictureUrl;
         this.experience = experience;
         this.gold = gold;
         this.partyLevel = partyLevel;
@@ -63,6 +77,20 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.roles = new HashSet<>();
+        this.profilePictureUrl = "";
+        this.experience = 0L;
+        this.gold = 0L;
+        this.partyLevel = 0;
+        log.info("New User created -> {}", this);
+    }
+
+    public User(RegisterUserDTO registerUserDTO) {
+        this.username = registerUserDTO.getUsername();
+        this.email = registerUserDTO.getEmail();
+        this.password = registerUserDTO.getPassword();
+        this.roles = new HashSet<>();
+        this.profilePictureUrl = "";
         this.experience = 0L;
         this.gold = 0L;
         this.partyLevel = 0;
