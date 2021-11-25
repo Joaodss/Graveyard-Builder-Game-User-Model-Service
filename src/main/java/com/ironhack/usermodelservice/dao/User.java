@@ -36,7 +36,7 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
@@ -77,6 +77,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.roles = new HashSet<>();
         this.profilePictureUrl = "";
         this.experience = 0L;
         this.gold = 0L;
@@ -88,6 +89,7 @@ public class User {
         this.username = registerUserDTO.getUsername();
         this.email = registerUserDTO.getEmail();
         this.password = registerUserDTO.getPassword();
+        this.roles = new HashSet<>();
         this.profilePictureUrl = "";
         this.experience = 0L;
         this.gold = 0L;

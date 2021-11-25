@@ -6,7 +6,6 @@ import com.ironhack.usermodelservice.dto.RegisterUserDTO;
 import com.ironhack.usermodelservice.dto.UserDTO;
 import com.ironhack.usermodelservice.repository.RoleRepository;
 import com.ironhack.usermodelservice.repository.UserRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -71,7 +70,6 @@ public class UserServiceImpl implements UserService {
         addRoleToUser(savedUser.getUsername(), "USER");
         log.info("User registered");
         return new UserDTO(savedUser);
-
     }
 
     public void addRoleToUser(String username, String roleName) {
