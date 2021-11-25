@@ -6,8 +6,11 @@ import com.ironhack.usermodelservice.dto.RegisterUserDTO;
 import com.ironhack.usermodelservice.dto.UserDTO;
 import com.ironhack.usermodelservice.repository.RoleRepository;
 import com.ironhack.usermodelservice.repository.UserRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
@@ -46,6 +49,7 @@ class UserServiceTest {
     private RegisterUserDTO newUserAlbert;
     private User albert;
     private UserDTO updatedJoaodss;
+    private UserDTO updatedJoaodssGold;
 
     @BeforeEach
     void setUp() {
@@ -95,18 +99,24 @@ class UserServiceTest {
         albert.setId(4L);
 
         updatedJoaodss = new UserDTO(
-                "Joaodss",
+                "joaodss",
                 "joaodss@email.com",
                 "url",
                 9L,
-                12L,
+                null,
                 18
+        );
+
+        updatedJoaodssGold = new UserDTO(
+                null,
+                null,
+                null,
+                null,
+                26L,
+                null
         );
     }
 
-    @AfterEach
-    void tearDown() {
-    }
 
     // -------------------- Get methods --------------------
     // ---------- Get All ----------
@@ -342,19 +352,37 @@ class UserServiceTest {
     void testUpdateUser_usesUserRepositoryFindByUsername() {
         // Given
         when(userRepository.findByUsername(anyString()))
-                .thenReturn(Optional.of(albert));
+                .thenReturn(Optional.of(joaodss));
         when(userRepository.save(any(User.class)))
-                .thenReturn(albert);
+                .thenReturn(joaodss);
         // When
         var updatedUser = userService.updateUser("joaodss", updatedJoaodss);
         // Then
         verify(userRepository).findByUsername(anyString());
         verify(userRepository).save(any(User.class));
         verifyNoMoreInteractions(userRepository);
+        joaodss.setUsername("joaodss");
         joaodss.setProfilePictureUrl("url");
         joaodss.setExperience(9L);
-        joaodss.setGold(12L);
         joaodss.setPartyLevel(18);
+        assertEquals(new UserDTO(joaodss), updatedUser);
+    }
+
+    @Test
+    @Order(8)
+    void testUpdateUser_updateGold_usesUserRepositoryFindByUsername() {
+        // Given
+        when(userRepository.findByUsername(anyString()))
+                .thenReturn(Optional.of(joaodss));
+        when(userRepository.save(any(User.class)))
+                .thenReturn(joaodss);
+        // When
+        var updatedUser = userService.updateUser("joaodss", updatedJoaodssGold);
+        // Then
+        verify(userRepository).findByUsername(anyString());
+        verify(userRepository).save(any(User.class));
+        verifyNoMoreInteractions(userRepository);
+        joaodss.setGold(26L);
         assertEquals(new UserDTO(joaodss), updatedUser);
     }
 
