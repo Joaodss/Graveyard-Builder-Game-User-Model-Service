@@ -1,5 +1,6 @@
 package com.ironhack.usermodelservice.controller;
 
+import com.ironhack.usermodelservice.dto.NewPasswordDTO;
 import com.ironhack.usermodelservice.dto.RegisterUserDTO;
 import com.ironhack.usermodelservice.dto.UserDTO;
 
@@ -22,13 +23,11 @@ public interface UserController {
     // -------------------- POST REQUESTS --------------------
     UserDTO registerUser(RegisterUserDTO registerUserDTO);
 
-    void addRoleToUser(String username, String roleName);
-
 
     // -------------------- PUT REQUESTS --------------------
     UserDTO updateUser(String username, UserDTO user);
 
-    void changePassword(String username, String password);
+    void changePassword(String username, NewPasswordDTO password);
 
 
     // -------------------- DELETE REQUESTS --------------------

@@ -101,6 +101,7 @@ class UserServiceTest {
         updatedJoaodss = new UserDTO(
                 "joaodss",
                 "joaodss@email.com",
+                Set.of(userRole),
                 "url",
                 9L,
                 null,
@@ -108,6 +109,7 @@ class UserServiceTest {
         );
 
         updatedJoaodssGold = new UserDTO(
+                null,
                 null,
                 null,
                 null,
