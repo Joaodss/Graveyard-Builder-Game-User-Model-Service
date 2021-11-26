@@ -174,7 +174,7 @@ class UserControllerIntegrationTest {
                 )
                 .andExpect(status().isNotFound())
                 .andReturn();
-        var responseError = mvcResult.getResponse().getErrorMessage();
+        var responseError = mvcResult.getResponse().getHeader("error");
         assertEquals("User not found", responseError);
     }
 
@@ -201,7 +201,7 @@ class UserControllerIntegrationTest {
                 )
                 .andExpect(status().isNotFound())
                 .andReturn();
-        var responseError = mvcResult.getResponse().getErrorMessage();
+        var responseError = mvcResult.getResponse().getHeader("error");
         assertEquals("User not found", responseError);
     }
 
@@ -228,7 +228,7 @@ class UserControllerIntegrationTest {
                 )
                 .andExpect(status().isNotFound())
                 .andReturn();
-        var responseError = mvcResult.getResponse().getErrorMessage();
+        var responseError = mvcResult.getResponse().getHeader("error");
         assertEquals("User not found", responseError);
     }
 
