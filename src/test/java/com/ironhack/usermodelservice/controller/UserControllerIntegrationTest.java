@@ -45,7 +45,7 @@ class UserControllerIntegrationTest {
 
     private MockMvc mockMvc;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final String BASE_URL = "/api/v1/users";
+    private final String baseUrl = "/api/v1/users";
 
     private User admin;
     private User user;
@@ -126,7 +126,7 @@ class UserControllerIntegrationTest {
     @Order(1)
     void testGetAllUsers_valuesOnDatabase_ListWithValues() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/all")
+                        get(baseUrl + "/all")
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
@@ -142,7 +142,7 @@ class UserControllerIntegrationTest {
     void testGetAllUsers_emptyDatabase_emptyList() throws Exception {
         userRepository.deleteAll();
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/all")
+                        get(baseUrl + "/all")
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)))
@@ -156,7 +156,7 @@ class UserControllerIntegrationTest {
     @Order(2)
     void testGetUserById_userExists_userReturned() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/id/{id}", admin.getId())
+                        get(baseUrl + "/id/{id}", admin.getId())
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username", is(admin.getUsername())))
@@ -170,7 +170,7 @@ class UserControllerIntegrationTest {
     @Order(2)
     void testGetUserById_userDoesNotExist_userNotFound() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/id/{id}", -1L)
+                        get(baseUrl + "/id/{id}", -1L)
                 )
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -183,7 +183,7 @@ class UserControllerIntegrationTest {
     @Order(3)
     void testGetUserByUsername_userExists_userReturned() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/username/{username}", user.getUsername())
+                        get(baseUrl + "/username/{username}", user.getUsername())
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username", is(user.getUsername())))
@@ -197,7 +197,7 @@ class UserControllerIntegrationTest {
     @Order(3)
     void testGetUserByUsername_userDoesNotExist_userNotFound() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/username/{username}", "Non Existing username..")
+                        get(baseUrl + "/username/{username}", "Non Existing username..")
                 )
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -210,7 +210,7 @@ class UserControllerIntegrationTest {
     @Order(4)
     void testGetUserByEmail_userExists_userReturned() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/email/{email}", joaodss.getEmail())
+                        get(baseUrl + "/email/{email}", joaodss.getEmail())
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username", is(joaodss.getUsername())))
@@ -224,7 +224,7 @@ class UserControllerIntegrationTest {
     @Order(4)
     void testGetUserByEmail_userDoesNotExist_userNotFound() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/email/{email}", "Non Existing email..")
+                        get(baseUrl + "/email/{email}", "Non Existing email..")
                 )
                 .andExpect(status().isNotFound())
                 .andReturn();
@@ -237,7 +237,7 @@ class UserControllerIntegrationTest {
     @Order(5)
     void testGetAllUsersIdByPartyLevelBetween_partyLevelExists_usersReturned() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/partyLevel")
+                        get(baseUrl + "/partyLevel")
                                 .param("min", "15")
                                 .param("max", "17")
                 )
@@ -255,7 +255,7 @@ class UserControllerIntegrationTest {
     @Order(5)
     void testGetAllUsersIdByPartyLevelBetween_partyLevelExistsMinAndMaxNotDefined_usersReturned() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/partyLevel")
+                        get(baseUrl + "/partyLevel")
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
@@ -275,7 +275,7 @@ class UserControllerIntegrationTest {
     @Order(5)
     void testGetAllUsersIdByPartyLevelBetween_minPartyLevelGreaterThanMax_throwError() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/partyLevel")
+                        get(baseUrl + "/partyLevel")
                                 .param("min", "13")
                                 .param("max", "0")
                 )
@@ -289,7 +289,7 @@ class UserControllerIntegrationTest {
     @Order(5)
     void testGetAllUsersIdByPartyLevelBetween_partyLevelNegative_throwError() throws Exception {
         var mvcResult = mockMvc.perform(
-                        get(BASE_URL + "/partyLevel")
+                        get(baseUrl + "/partyLevel")
                                 .param("min", "-5")
                                 .param("max", "14")
                 )
@@ -306,7 +306,7 @@ class UserControllerIntegrationTest {
     void testCreateUser_userCreated_userReturned() throws Exception {
         var newUserBody = objectMapper.writeValueAsString(newUserAlbert);
         var mvcResult = mockMvc.perform(
-                        post(BASE_URL + "/register")
+                        post(baseUrl + "/register")
                                 .content(newUserBody)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -326,7 +326,7 @@ class UserControllerIntegrationTest {
     void testUpdateUser_userUpdated_userReturned() throws Exception {
         var updatedUserBody = objectMapper.writeValueAsString(updatedJoaodss);
         var mvcResult = mockMvc.perform(
-                        put(BASE_URL + "/update/" + joaodss.getUsername())
+                        put(baseUrl + "/update/" + joaodss.getUsername())
                                 .content(updatedUserBody)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -347,7 +347,7 @@ class UserControllerIntegrationTest {
     void testUpdateUser_userNotFound_throwError() throws Exception {
         var updatedUserBody = objectMapper.writeValueAsString(updatedJoaodss);
         var mvcResult = mockMvc.perform(
-                        put(BASE_URL + "/update/notFound")
+                        put(baseUrl + "/update/notFound")
                                 .content(updatedUserBody)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -363,7 +363,7 @@ class UserControllerIntegrationTest {
     void testChangePassword_passwordChanged_passwordReturned() throws Exception {
         var changePasswordBody = objectMapper.writeValueAsString(new NewPasswordDTO("pass1234"));
         mockMvc.perform(
-                        put(BASE_URL + "/update/" + user.getUsername() + "/password")
+                        put(baseUrl + "/update/" + user.getUsername() + "/password")
                                 .content(changePasswordBody)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -380,7 +380,7 @@ class UserControllerIntegrationTest {
     void testChangePassword_userNotFound_throwError() throws Exception {
         var changePasswordBody = objectMapper.writeValueAsString(new NewPasswordDTO("pass1234"));
         var mvcResult = mockMvc.perform(
-                        put(BASE_URL + "/update/notFound/password")
+                        put(baseUrl + "/update/notFound/password")
                                 .content(changePasswordBody)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -396,7 +396,7 @@ class UserControllerIntegrationTest {
     @Order(9)
     void testDeleteUser_userDeleted_userReturned() throws Exception {
         mockMvc.perform(
-                        delete(BASE_URL + "/delete/" + joaodss.getUsername())
+                        delete(baseUrl + "/delete/" + joaodss.getUsername())
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -407,7 +407,7 @@ class UserControllerIntegrationTest {
     @Order(9)
     void testDeleteUser_userNotFound_throwError() throws Exception {
         var mvcResult = mockMvc.perform(
-                        delete(BASE_URL + "/delete/notFound")
+                        delete(baseUrl + "/delete/notFound")
                 )
                 .andExpect(status().isBadRequest())
                 .andReturn();
