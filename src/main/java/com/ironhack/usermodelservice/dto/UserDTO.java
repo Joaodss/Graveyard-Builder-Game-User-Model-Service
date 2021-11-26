@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +19,7 @@ public class UserDTO {
 
     private String username;
     private String email;
-    private Set<Role> roles;
+    private Set<String> roles;
     private String profilePictureUrl;
     private Long experience;
     private Long gold;
@@ -29,7 +30,9 @@ public class UserDTO {
     public UserDTO(User user) {
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.roles = user.getRoles();
+        this.roles = user.getRoles().stream()
+                .map(Role::getName)
+                .collect(Collectors.toSet());
         this.profilePictureUrl = user.getProfilePictureUrl();
         this.experience = user.getExperience();
         this.gold = user.getGold();

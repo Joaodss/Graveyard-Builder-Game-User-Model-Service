@@ -101,7 +101,7 @@ class UserServiceTest {
         updatedJoaodss = new UserDTO(
                 "joaodss",
                 "joaodss@email.com",
-                Set.of(userRole),
+                Set.of(userRole.getName()),
                 "url",
                 9L,
                 null,
