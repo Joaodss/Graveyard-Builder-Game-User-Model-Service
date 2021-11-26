@@ -6,6 +6,7 @@ import com.ironhack.usermodelservice.dto.UserDTO;
 import com.ironhack.usermodelservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -32,30 +33,30 @@ public class UserControllerImpl implements UserController {
     }
 
     @GetMapping("/id/{id}")
-    @ResponseStatus(OK)
-    public UserDTO getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         log.info("Getting user by id {}", id);
         var user = userService.getUserById(id);
-        if (user == null) throw new ResponseStatusException(NOT_FOUND, "User not found");
-        return user;
+        if (user == null)
+            return ResponseEntity.notFound().header("error", "User not found").build();
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/username/{username}")
-    @ResponseStatus(OK)
-    public UserDTO getUserByUsername(@PathVariable String username) {
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
         log.info("Getting user by username {}", username);
         var user = userService.getUserByUsername(username);
-        if (user == null) throw new ResponseStatusException(NOT_FOUND, "User not found");
-        return user;
+        if (user == null)
+            return ResponseEntity.notFound().header("error", "User not found").build();
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/email/{email}")
-    @ResponseStatus(OK)
-    public UserDTO getUserByEmail(@PathVariable String email) {
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
         log.info("Getting user by email {}", email);
         var user = userService.getUserByEmail(email);
-        if (user == null) throw new ResponseStatusException(NOT_FOUND, "User not found");
-        return user;
+        if (user == null)
+            return ResponseEntity.notFound().header("error", "User not found").build();
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/partyLevel")
