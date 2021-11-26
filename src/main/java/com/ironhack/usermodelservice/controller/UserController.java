@@ -3,6 +3,7 @@ package com.ironhack.usermodelservice.controller;
 import com.ironhack.usermodelservice.dto.NewPasswordDTO;
 import com.ironhack.usermodelservice.dto.RegisterUserDTO;
 import com.ironhack.usermodelservice.dto.UserDTO;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -11,11 +12,11 @@ public interface UserController {
     // -------------------- GET REQUESTS --------------------
     List<UserDTO> getAllUsers();
 
-    UserDTO getUserById(Long id);
+    ResponseEntity<UserDTO> getUserById(Long id);
 
-    UserDTO getUserByUsername(String username);
+    ResponseEntity<UserDTO> getUserByUsername(String username);
 
-    UserDTO getUserByEmail(String email);
+    ResponseEntity<UserDTO> getUserByEmail(String email);
 
     List<String> getAllUsersUsernamesByPartyLevelBetween(Integer min, Integer max);
 
