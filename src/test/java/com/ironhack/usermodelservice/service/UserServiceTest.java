@@ -244,7 +244,7 @@ class UserServiceTest {
     @Order(5)
     void testGetAllIdsByPartyLevelBetween_usesUserRepositoryFindAllIdsByPartyLevelBetween() {
         // When
-        userService.getAllUsersIdsByPartyLevelBetween(anyInt(), anyInt());
+        userService.getAllUsersUsernamesByPartyLevelBetween(anyInt(), anyInt());
         // Then
         verify(userRepository).findAllByPartyLevelBetween(anyInt(), anyInt());
         verifyNoMoreInteractions(userRepository);
@@ -257,9 +257,9 @@ class UserServiceTest {
         when(userRepository.findAllByPartyLevelBetween(15, 17))
                 .thenReturn(List.of(admin, joaodss));
         // When
-        var storedUsers = userService.getAllUsersIdsByPartyLevelBetween(15, 17);
+        var storedUsers = userService.getAllUsersUsernamesByPartyLevelBetween(15, 17);
         // Then
-        assertEquals(List.of(admin.getId(), joaodss.getId()), storedUsers);
+        assertEquals(List.of(admin.getUsername(), joaodss.getUsername()), storedUsers);
     }
 
     @Test
@@ -269,7 +269,7 @@ class UserServiceTest {
         when(userRepository.findAllByPartyLevelBetween(10, 12))
                 .thenReturn(List.of());
         // When
-        var storedUsers = userService.getAllUsersIdsByPartyLevelBetween(10, 12);
+        var storedUsers = userService.getAllUsersUsernamesByPartyLevelBetween(10, 12);
         // Then
         assertEquals(List.of(), storedUsers);
     }

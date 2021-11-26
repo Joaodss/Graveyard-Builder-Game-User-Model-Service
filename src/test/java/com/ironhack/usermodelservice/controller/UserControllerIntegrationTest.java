@@ -247,7 +247,7 @@ class UserControllerIntegrationTest {
         var resultBody = List.of(
                 objectMapper.readValue(mvcResult.getResponse().getContentAsString(), String[].class)
         );
-        var expectedBody = List.of(admin.getId().toString(), joaodss.getId().toString());
+        var expectedBody = List.of(admin.getUsername(), joaodss.getUsername());
         assertTrue(resultBody.containsAll(expectedBody));
     }
 
@@ -264,9 +264,9 @@ class UserControllerIntegrationTest {
                 objectMapper.readValue(mvcResult.getResponse().getContentAsString(), String[].class)
         );
         var expectedBody = List.of(
-                admin.getId().toString(),
-                user.getId().toString(),
-                joaodss.getId().toString()
+                admin.getUsername(),
+                user.getUsername(),
+                joaodss.getUsername()
         );
         assertTrue(resultBody.containsAll(expectedBody));
     }

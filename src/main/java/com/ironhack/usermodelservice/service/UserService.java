@@ -16,7 +16,7 @@ public interface UserService {
 
     UserDTO getUserByEmail(String email);
 
-    List<Long> getAllUsersIdsByPartyLevelBetween(int min, int max);
+    List<String> getAllUsersUsernamesByPartyLevelBetween(int min, int max);
 
     // -------------------- Register methods --------------------
     UserDTO registerUser(RegisterUserDTO registerUserDTO);
