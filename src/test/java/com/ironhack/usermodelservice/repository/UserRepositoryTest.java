@@ -24,7 +24,7 @@ class UserRepositoryTest {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-    private final User NEW_USER = new User(
+    private final User newUser = new User(
             "Joaodss",
             "joaodss@email.com",
             "123456",
@@ -66,7 +66,7 @@ class UserRepositoryTest {
     @Order(2)
     void testCreateUser_saveNewUser_storedInRepository() {
         var initialSize = userRepository.count();
-        userRepository.save(NEW_USER);
+        userRepository.save(newUser);
         assertEquals(initialSize + 1, userRepository.count());
     }
 
@@ -96,7 +96,7 @@ class UserRepositoryTest {
     // -------------------- Update --------------------
     @Test
     @Order(4)
-    void testUpdateUser_changePassword_newInterestRateEqualsDefinedValue() {
+    void testUpdateUser_changePassword_newPasswordEqualsDefinedValue() {
         var element1 = userRepository.findById(1L)
                 .orElseThrow(() -> new RuntimeException("Element not found"));
 
@@ -163,15 +163,15 @@ class UserRepositoryTest {
     @Test
     @Order(7)
     void findAllByPartyLevelBetween_containInformation_returnUsersWithLevelInside() {
-        userRepository.save(NEW_USER);
+        userRepository.save(newUser);
         var elements = userRepository.findAllByPartyLevelBetween(14, 16);
-        assertEquals(List.of(u1, NEW_USER), elements); // u1 - Admin(16), NEW_USER - Joaodss(15)
+        assertEquals(List.of(u1, newUser), elements); // u1 - Admin(16), NEW_USER - Joaodss(15)
     }
 
     @Test
     @Order(7)
     void findAllByPartyLevelBetween_doesNotContainInformation_returnEmpty() {
-        userRepository.save(NEW_USER);
+        userRepository.save(newUser);
         var elements = userRepository.findAllByPartyLevelBetween(10, 12);
         assertTrue(elements.isEmpty());
     }
