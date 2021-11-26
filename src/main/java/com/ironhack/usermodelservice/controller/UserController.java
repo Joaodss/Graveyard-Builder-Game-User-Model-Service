@@ -17,7 +17,7 @@ public interface UserController {
 
     UserDTO getUserByEmail(String email);
 
-    List<Long> getAllUsersIdsByPartyLevelBetween(Integer min, Integer max);
+    List<String> getAllUsersUsernamesByPartyLevelBetween(Integer min, Integer max);
 
 
     // -------------------- POST REQUESTS --------------------

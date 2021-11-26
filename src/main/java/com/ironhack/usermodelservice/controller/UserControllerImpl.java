@@ -60,7 +60,7 @@ public class UserControllerImpl implements UserController {
 
     @GetMapping("/partyLevel")
     @ResponseStatus(OK)
-    public List<Long> getAllUsersIdsByPartyLevelBetween(
+    public List<String> getAllUsersUsernamesByPartyLevelBetween(
             @RequestParam(required = false) Integer min,
             @RequestParam(required = false) Integer max
     ) {
@@ -71,7 +71,7 @@ public class UserControllerImpl implements UserController {
             throw new ResponseStatusException(BAD_REQUEST, "Min party level must be less than max party level");
         if (maxValue < 0 || minValue < 0)
             throw new ResponseStatusException(BAD_REQUEST, "Party level must be positive");
-        return userService.getAllUsersIdsByPartyLevelBetween(minValue, maxValue);
+        return userService.getAllUsersUsernamesByPartyLevelBetween(minValue, maxValue);
     }
 
     // -------------------- POST REQUESTS --------------------

@@ -55,11 +55,11 @@ public class UserServiceImpl implements UserService {
                 .orElse(null);
     }
 
-    public List<Long> getAllUsersIdsByPartyLevelBetween(int min, int max) {
+    public List<String> getAllUsersUsernamesByPartyLevelBetween(int min, int max) {
         log.info("Getting all users ids by party level between: {} and {}", min, max);
         var storedUsers = userRepository.findAllByPartyLevelBetween(min, max);
         return storedUsers.stream()
-                .map(User::getId)
+                .map(User::getUsername)
                 .collect(Collectors.toList());
     }
 
