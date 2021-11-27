@@ -3,6 +3,7 @@ package com.ironhack.usermodelservice.service;
 import com.ironhack.usermodelservice.dao.Role;
 import com.ironhack.usermodelservice.dao.User;
 import com.ironhack.usermodelservice.dto.RegisterUserDTO;
+import com.ironhack.usermodelservice.dto.UserAuthDTO;
 import com.ironhack.usermodelservice.dto.UserDTO;
 import com.ironhack.usermodelservice.repository.RoleRepository;
 import com.ironhack.usermodelservice.repository.UserRepository;
@@ -29,6 +30,14 @@ public class UserServiceImpl implements UserService {
         return storedUsers.stream()
                 .map(UserDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    public UserAuthDTO getUserAuthByUsername(String username){
+        log.info("Getting user auth by username: {}", username);
+        var storedUser = userRepository.findByUsername(username);
+        return storedUser
+                .map(UserAuthDTO::new)
+                .orElse(null);
     }
 
     public UserDTO getUserById(long id) {

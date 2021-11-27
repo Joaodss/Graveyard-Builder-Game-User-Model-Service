@@ -1,6 +1,7 @@
 package com.ironhack.usermodelservice.service;
 
 import com.ironhack.usermodelservice.dto.RegisterUserDTO;
+import com.ironhack.usermodelservice.dto.UserAuthDTO;
 import com.ironhack.usermodelservice.dto.UserDTO;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public interface UserService {
     List<UserDTO> getAllUsers();
 
     UserDTO getUserById(long id);
+
+    UserAuthDTO getUserAuthByUsername(String username);
 
     UserDTO getUserByUsername(String username);
 
