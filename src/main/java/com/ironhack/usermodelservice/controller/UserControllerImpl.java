@@ -2,6 +2,7 @@ package com.ironhack.usermodelservice.controller;
 
 import com.ironhack.usermodelservice.dto.NewPasswordDTO;
 import com.ironhack.usermodelservice.dto.RegisterUserDTO;
+import com.ironhack.usermodelservice.dto.UserAuthDTO;
 import com.ironhack.usermodelservice.dto.UserDTO;
 import com.ironhack.usermodelservice.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class UserControllerImpl implements UserController {
         return userService.getAllUsers();
     }
 
+
     @GetMapping("/id/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         log.info("Getting user by id {}", id);
@@ -39,6 +41,15 @@ public class UserControllerImpl implements UserController {
         if (user == null)
             return ResponseEntity.notFound().header("error", "User not found").build();
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/auth/{username}")
+    public ResponseEntity<UserAuthDTO> getUserAuth(@PathVariable String username) {
+        log.info("Getting user auth by username {}", username);
+        var userAuth = userService.getUserAuthByUsername(username);
+        if (userAuth == null)
+            return ResponseEntity.notFound().header("error", "User not found").build();
+        return ResponseEntity.ok(userAuth);
     }
 
     @GetMapping("/username/{username}")
