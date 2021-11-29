@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -29,10 +30,10 @@ public class UserServiceImpl implements UserService {
         var storedUsers = userRepository.findAll();
         return storedUsers.stream()
                 .map(UserDTO::new)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
-    public UserAuthDTO getUserAuthByUsername(String username){
+    public UserAuthDTO getUserAuthByUsername(String username) {
         log.info("Getting user auth by username: {}", username);
         var storedUser = userRepository.findByUsername(username);
         return storedUser
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService {
         var storedUsers = userRepository.findAllByPartyLevelBetween(min, max);
         return storedUsers.stream()
                 .map(User::getUsername)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
 

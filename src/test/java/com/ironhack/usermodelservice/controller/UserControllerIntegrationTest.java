@@ -42,11 +42,9 @@ class UserControllerIntegrationTest {
     private final WebApplicationContext webApplicationContext;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-
-    private MockMvc mockMvc;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final String baseUrl = "/api/v1/users";
-
+    private MockMvc mockMvc;
     private User admin;
     private User user;
     private User joaodss;

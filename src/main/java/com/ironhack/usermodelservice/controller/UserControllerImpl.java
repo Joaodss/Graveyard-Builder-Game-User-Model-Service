@@ -33,7 +33,6 @@ public class UserControllerImpl implements UserController {
         return userService.getAllUsers();
     }
 
-
     @GetMapping("/id/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         log.info("Getting user by id {}", id);
@@ -86,6 +85,7 @@ public class UserControllerImpl implements UserController {
         return userService.getAllUsersUsernamesByPartyLevelBetween(minValue, maxValue);
     }
 
+
     // -------------------- POST REQUESTS --------------------
     @PostMapping("/register")
     @ResponseStatus(CREATED)
@@ -97,6 +97,7 @@ public class UserControllerImpl implements UserController {
             throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "User not found: " + e1.getMessage());
         }
     }
+
 
     // -------------------- PUT REQUESTS --------------------
     @PutMapping("/update/{username}")
@@ -120,6 +121,7 @@ public class UserControllerImpl implements UserController {
             throw new ResponseStatusException(BAD_REQUEST, "User not found");
         }
     }
+
 
     // -------------------- DELETE REQUESTS --------------------
     @DeleteMapping("/delete/{username}")

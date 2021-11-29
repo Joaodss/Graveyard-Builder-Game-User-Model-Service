@@ -5,7 +5,8 @@ import com.ironhack.usermodelservice.dao.User;
 import lombok.*;
 
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toSet;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class UserAuthDTO {
         this.password = user.getPassword();
         this.roles = user.getRoles().stream()
                 .map(Role::getName)
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
 }

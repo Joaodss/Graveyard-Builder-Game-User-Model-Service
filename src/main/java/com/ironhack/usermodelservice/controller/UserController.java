@@ -5,8 +5,6 @@ import com.ironhack.usermodelservice.dto.RegisterUserDTO;
 import com.ironhack.usermodelservice.dto.UserAuthDTO;
 import com.ironhack.usermodelservice.dto.UserDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
